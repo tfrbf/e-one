@@ -1,6 +1,7 @@
-float c = 12;
-int i = 50;
-int count = 0;
+//Variables 
+float c = 12; //define coefficient to control i
+int i = 50; // delay time
+int count = 0; //counter to control program in mode2 & mode3
 
 void setup() {
   // put your setup code here, to run once:
@@ -15,7 +16,8 @@ void loop() {
     if (c * i <= 30)
       break;
   }
-  int i = 50;
+  
+  int i = 50; //Restoring i
 
   while (i > 0) {
     mode_2();
@@ -23,7 +25,9 @@ void loop() {
     if (count >= 10)
       break;
   }
+  
   count = 0;
+  
   while (i > 0) {
     mode_3();
     count += 1;
@@ -32,8 +36,7 @@ void loop() {
   }
 }
 
-
-
+//Functions
 void mode_1() {
   digitalWrite(8, HIGH);
   delay(2 * i);
@@ -55,7 +58,6 @@ void mode_1() {
   c -= 0.6;
 }
 
-
 void mode_2() {
   digitalWrite(8, HIGH);
   delay(1.5 * i);
@@ -70,13 +72,13 @@ void mode_2() {
 
 void mode_3() {
   digitalWrite(8, HIGH);
-  delay(650);
+  delay(13*i);
   digitalWrite(8, LOW);
-  delay(50);
+  delay(i);
 
 
   digitalWrite(10, HIGH);
-  delay(650);
+  delay(13*i);
   digitalWrite(10, LOW);
-  delay(50);
+  delay(i);
 }
