@@ -8,7 +8,7 @@ Setting up ULTRA SONIC
 #define trigger 12
 #define echo 13
 
-SRF05 SRF(trigger, rcho);
+SRF05 SRF(trigger, echo);
 
 void setup() {
   // put your setup code here, to run once:
@@ -18,18 +18,20 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  float Distance = 0;
-  float Distance_mil = 0;
-  Serial.print("Distance (Centi)= \n");
+  float Distance;
+  float Distance_mil;
+
+  Serial.print("Distance (Centi) =");
   Distance = SRF.getCentimeter();
   Serial.print(Distance);
+  Serial.print("\n");
   //Serial.print("Centimeters "\n);
   Serial.print("Distance (mili) =");
-  Distance_mil = SRF.getmilimeter();
+  Distance_mil = SRF.getMillimeter();
   Serial.print(Distance_mil);
   Serial.print("\n");
 
-  delay(500);
+  delay(800);
 }
 
 //Functions
