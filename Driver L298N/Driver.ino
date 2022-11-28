@@ -11,8 +11,6 @@ Building first srtucture
 #define r_motor_in3 4
 #define r_motor_in4 5
 
-int p,pot;
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -39,11 +37,11 @@ pot = map(p,0,1023,0,255);
 void move_forward(){
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
-  analogWrite(l_motor,pot);
+  analogWrite(l_motor,255);
 
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
-  analogWrite(r_motor, pot);
+  analogWrite(r_motor, 255);
   
 }
 
