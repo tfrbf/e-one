@@ -1,10 +1,8 @@
 # Robotic-course
 Robotic class repository, include each sessions codes and circuits.
 -------------------------------------------------------------------
-In this course our team tries to design a firefighter robot.
-we use Arduino UNO as a microcontroller.
 
-we need:
+we use:
 1) Arduino UNO
 2) Gearbox *2
 3) Battery (9V)
