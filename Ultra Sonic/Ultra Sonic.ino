@@ -60,13 +60,13 @@ void loop() {
 
 //Functions
 void forward() {
-  digitalWrite(l_motor_in1, HIGH);
-  digitalWrite(l_motor_in2, LOW);
-  analogWrite(l_motor, pot);
+  digitalWrite(l_motor_in1, LOW);
+  digitalWrite(l_motor_in2, HIGH);
+  analogWrite(l_motor, 255);
 
-  digitalWrite(r_motor_in3, HIGH);
-  digitalWrite(r_motor_in4, LOW);
-  analogWrite(r_motor, pot);
+  digitalWrite(r_motor_in3, LOW);
+  digitalWrite(r_motor_in4, HIGH);
+  analogWrite(r_motor, 255);
 }
 
 void stop() {
@@ -80,12 +80,12 @@ void stop() {
 }
 
 void backward() {
-  digitalWrite(l_motor_in1, LOW);
-  digitalWrite(l_motor_in2, HIGH);
+  digitalWrite(l_motor_in1, HIGH);
+  digitalWrite(l_motor_in2, LOW);
   analogWrite(l_motor, 255);
 
-  digitalWrite(r_motor_in3, LOW);
-  digitalWrite(r_motor_in4, HIGH);
+  digitalWrite(r_motor_in3, HIGH);
+  digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, 255);
 }
 
