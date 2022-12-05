@@ -1,6 +1,6 @@
 /*
-1401 - 09 - 01
-Building first srtucture
+1401 - 09 - 013
+set lighs on gearboxes 
 */
 
 #include "SRF05.h"
@@ -8,7 +8,7 @@ Building first srtucture
 #define echo 13
 
 SRF05 SRF(trigger, echo);
-
+int LED;
 
 //Define part
 #define l_motor 9  //ENA
@@ -17,17 +17,18 @@ SRF05 SRF(trigger, echo);
 #define r_motor 3  //ENB
 #define r_motor_in3 4
 #define r_motor_in4 5
-
-int p, pot;
+#define R_light 10
+#define L_light 11
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  int p, pot;
-
+  pinMode(11, OUTPUT);
+  pinMode(10, OUTPUT);
   pinMode(A1, INPUT);
   SRF.setCorrectionFactor(1.035);
 }
+
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -42,19 +43,19 @@ void loop() {
   }
 
   stop();
-  delay(120);
+  delay(200);
+
   Direction = random(1, 3);
   Serial.print(Direction);
 
-  if (Direction==1) {
+  if (Direction == 1) {
     CW();
   }
 
-  if (Direction==2) {
+  if (Direction == 2) {
     CCW();
   }
-
-  delay(300);
+  
 }
 
 
@@ -67,6 +68,8 @@ void forward() {
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
   analogWrite(r_motor, 255);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
 }
 
 void stop() {
@@ -77,6 +80,8 @@ void stop() {
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, 0);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
 }
 
 void backward() {
@@ -87,6 +92,9 @@ void backward() {
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, 255);
+
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
 }
 
 void CW() {
@@ -97,6 +105,9 @@ void CW() {
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
   analogWrite(r_motor, 255);
+
+  digitalWrite(10, HIGH);
+  digitalWrite(11, LOW);
 }
 
 void CCW() {
@@ -107,4 +118,7 @@ void CCW() {
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, 255);
+
+  digitalWrite(11, HIGH);
+  digitalWrite(10, LOW);
 }
