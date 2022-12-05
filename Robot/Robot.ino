@@ -7,7 +7,7 @@ set lighs on gearboxes
 #define trigger 12
 #define echo 13
 
-SRF05 SRF(trigger, echo);
+SRF05 SRF(trigger, echo); 
 int LED;
 
 //Define part
@@ -37,7 +37,11 @@ void loop() {
   distance = SRF.getCentimeter();
 
   while (distance > 30) {
+    Serial.print("\t Moving forward...");    
     forward();
+        
+
+    
     delay(200);
     distance = SRF.getCentimeter();
   }
@@ -50,10 +54,17 @@ void loop() {
 
   if (Direction == 1) {
     CW();
+    Serial.print("\t Turning Righ...");
+    Serial.print("\t LED_1 is on");
+    delay(100);
+    
   }
 
   if (Direction == 2) {
     CCW();
+    Serial.print("\t Turning Left...");
+    Serial.print("\tLED_2 is on");
+    delay(100);
   }
   
 }
