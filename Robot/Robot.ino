@@ -7,8 +7,9 @@ set lighs on gearboxes
 #define trigger 12
 #define echo 13
 
-SRF05 SRF(trigger, echo); 
+SRF05 SRF(trigger, echo);
 int LED;
+int Speed;
 
 //Define part
 #define l_motor 9  //ENA
@@ -27,46 +28,48 @@ void setup() {
   pinMode(10, OUTPUT);
   pinMode(A1, INPUT);
   SRF.setCorrectionFactor(1.035);
+  int speed;
 }
 
 
 void loop() {
   // put your main code here, to run repeatedly:
-  float distance;
-  int Direction;
-  distance = SRF.getCentimeter();
+  // float distance;
+  // int Direction;
+  // distance = SRF.getCentimeter();
 
-  while (distance > 30) {
-    Serial.print("\t Moving forward...");    
-    forward();
-        
+  // while (distance > 30) {
+  //   Serial.print("\t Moving forward...");
+  //   forward();
 
-    
-    delay(200);
-    distance = SRF.getCentimeter();
-  }
 
-  stop();
-  delay(200);
 
-  Direction = random(1, 3);
-  Serial.print(Direction);
+  //   delay(200);
+  //   distance = SRF.getCentimeter();
+  // }
 
-  if (Direction == 1) {
-    CW();
-    Serial.print("\t Turning Righ...");
-    Serial.print("\t LED_1 is on");
-    delay(100);
-    
-  }
+  // stop();
+  // delay(200);
 
-  if (Direction == 2) {
-    CCW();
-    Serial.print("\t Turning Left...");
-    Serial.print("\tLED_2 is on");
-    delay(100);
-  }
-  
+  // Direction = random(1, 3);
+  // Serial.print(Direction);
+
+  // if (Direction == 1) {
+  //   CW();
+  //   Serial.print("\t Turning Righ...");
+  //   Serial.print("\t LED_1 is on");
+  //   delay(100);
+
+  // }
+
+  // if (Direction == 2) {
+  //   CCW();
+  //   Serial.print("\t Turning Left...");
+  //   Serial.print("\tLED_2 is on");
+  //   delay(100);
+  // }
+
+  speed_control();
 }
 
 
@@ -74,11 +77,11 @@ void loop() {
 void forward() {
   digitalWrite(l_motor_in1, LOW);
   digitalWrite(l_motor_in2, HIGH);
-  analogWrite(l_motor, 255);
+  analogWrite(l_motor, speed);
 
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
-  analogWrite(r_motor, 255);
+  analogWrite(r_motor, speed);
   digitalWrite(10, LOW);
   digitalWrite(11, LOW);
 }
@@ -98,11 +101,11 @@ void stop() {
 void backward() {
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
-  analogWrite(l_motor, 255);
+  analogWrite(l_motor, speed);
 
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
-  analogWrite(r_motor, 255);
+  analogWrite(r_motor, speed);
 
   digitalWrite(10, LOW);
   digitalWrite(11, LOW);
@@ -111,11 +114,11 @@ void backward() {
 void CW() {
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
-  analogWrite(l_motor, 255);
+  analogWrite(l_motor, speed);
 
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
-  analogWrite(r_motor, 255);
+  analogWrite(r_motor, speed);
 
   digitalWrite(10, HIGH);
   digitalWrite(11, LOW);
@@ -124,12 +127,27 @@ void CW() {
 void CCW() {
   digitalWrite(l_motor_in1, LOW);
   digitalWrite(l_motor_in2, HIGH);
-  analogWrite(l_motor, 255);
+  analogWrite(l_motor, speed);
 
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
-  analogWrite(r_motor, 255);
+  analogWrite(r_motor, speed);
 
   digitalWrite(11, HIGH);
   digitalWrite(10, LOW);
+}
+
+void speed_control() {
+  int speed = 0;
+
+    while (speed < 250) {
+    speed += 10;
+    Serial.print("\t Speed: ");
+    Serial.print(speed);
+    delay(200);
+  }
+
+  Speed = 255;
+  Serial.print("\t Speed: ");
+  Serial.print(speed);
 }
