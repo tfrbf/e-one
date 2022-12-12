@@ -1,7 +1,6 @@
 # Fire Fighter Robot
-This is an arduino based robot.
-It can detect Fire, CO gas and send defined alarms to controller.
-It was our first experience to work with microcontroller and our gained experiences are very valuable.
+This is an arduino based robot that can detect Fire, CO gas and send defined alarms to controller.
+
 
 ## Introduction 
 
