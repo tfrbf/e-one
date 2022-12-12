@@ -1,10 +1,8 @@
 
-
 /* Notes:
-  1401 - 09 - 013
-  set lighs on gearboxes
+  1401 - 09 - 20
+  set bluetooth module and difine directions
 */
-
 
 #include "string.h"
 #include "SRF05.h"
@@ -21,7 +19,8 @@ int Speed;
 bool Status;
 String Direction;
 int distance;
-int x;
+int led_rate;
+char blth;
 
 
 //Define part
@@ -48,60 +47,32 @@ void setup() {
 
 void loop() {
 
-  forward();
-//  delay(2000);
-//  Stop();
-//  delay(200);
-//  backward();
-//  delay(2000);
-//  Stop();
- // delay(200);
+  while (Serial.available() > 0) {
+    blth = Serial.read(); //checking the bluetooth module status
+    Serial.println(blth);
 
+    if(blth=='F')        
+    forward();
+    
+    if(blth=='B')
+    backward();
+    
+    if(blth=='L')
+    cw();
 
-  // put your main code here, to run repeatedly:
-  // float distance;
-  // int Direction;
+    if(blth=='R')
+    CCW();
+  }
   // distance = SRF.getCentimeter();
-
-  // while (distance > 30) {
-  //   Serial.print("\t Moving forward...");
-  //   forward();
-
-
-
-  //   delay(200);
-  //   distance = SRF.getCentimeter();
-  // }
-
-  // stop();
-  // delay(200);
-
   // Direction = random(1, 3);
   // Serial.print(Direction);
-
-  // if (Direction == 1) {
-  //   CW();
-  //   Serial.print("\t Turning Righ...");
-  //   Serial.print("\t LED_1 is on");
-  //   delay(100);
-
-  // }
-
-  // if (Direction == 2) {
-  //   CCW();
-  //   Serial.print("\t Turning Left...");
-  //   Serial.print("\tLED_2 is on");
-  //   delay(100);
-  // }
-
-
 }
 
 
 //Functions
 void forward() {
   distance = SRF.getCentimeter();
-  x = map(distance, 0, 2000, 80, 4000);
+  led_rate = map(distance, 0, 2000, 80, 4000);
   Blink();
   Status = true;
   Direction = "Forward";
@@ -119,7 +90,7 @@ void forward() {
 
 void Stop() {
   distance = SRF.getCentimeter();
-  x = map(distance, 0, 2000, 80, 4000);
+  led_rate = map(distance, 0, 2000, 80, 4000);
   Blink();
   Status = false;
   Direction = "Stop";
@@ -139,7 +110,7 @@ void backward() {
   distance = SRF.getCentimeter();
   Serial.print("/t/t distance:");
   Serial.print(distance);
-  x = map(distance, 0, 2000, 80, 1500);
+  led_rate = map(distance, 0, 2000, 80, 1500);
   Blink();
   Status = true;
   Direction = "Backward";
@@ -197,7 +168,6 @@ void speed_control() {
     Serial.print("\t Speed: ");
     Serial.println(Speed);
     delay(200);
-
   }
   if (!Status) {
     for (Speed; Speed >= 0; Speed -= 10) {
@@ -219,8 +189,7 @@ void Blink() {
 
   Serial.print(distance);
   digitalWrite(2, HIGH);
-  delay(x);
+  delay(led_rate);
   digitalWrite(2, LOW);
-  delay(x);
-
+  delay(led_rate);
 }
