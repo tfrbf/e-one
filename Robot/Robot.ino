@@ -58,7 +58,7 @@ void loop() {
     backward();
     
     if(blth=='L')
-    cw();
+    CW();
 
     if(blth=='R')
     CCW();
