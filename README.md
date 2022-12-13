@@ -1,8 +1,8 @@
-# Fire Fighter Robot
+## Introduction 
+
 This is an arduino based robot that can detect Fire, CO gas and send defined alarms to controller.
 
 
-## Introduction 
 
 
 ## Hardware 
