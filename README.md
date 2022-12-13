@@ -40,6 +40,6 @@ The HY-SRF05 is an ultrasonic emitter/receiver used to measure distance with a p
 
 :envelope_with_arrow:	 please contact us
 
-- amirtahafarshbaf@gmail.com 
+- t_farshbaf@outlook.com
 - atadibazar2016@gmail.com
 - e.fakhrzadeh@gmail.com
