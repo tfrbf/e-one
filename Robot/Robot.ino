@@ -1,17 +1,6 @@
-
-/* Notes:
-  1401 - 09 - 20
-  set bluetooth module and difine directions
-*/
-
+//Include part
 #include "string.h"
 #include "SRF05.h"
-#define trigger 12
-#define echo 13
-
-
-//Import libraries
-SRF05 SRF(trigger, echo);
 
 //Global Variebels
 int LED;
@@ -24,23 +13,32 @@ char blth;
 
 
 //Define part
+#define led 2
+#define alarm
+#define trigger 12
+#define echo 13
 #define l_motor 9  //ENA
 #define l_motor_in1 7
 #define l_motor_in2 6
 #define r_motor 3  //ENB
 #define r_motor_in3 4
 #define r_motor_in4 5
-#define R_light 10
-#define L_light 11
+#define lights 10
+#define back_lights 11
+
+//Import libraries
+SRF05 SRF(trigger, echo);
+
 
 void setup() {
   // put your setup code here, to run once:
+  SRF.setCorrectionFactor(1.035);
   Serial.begin(9600);
   pinMode(11, OUTPUT);
   pinMode(10, OUTPUT);
   pinMode(A1, INPUT);
-  pinMode(2, OUTPUT);
-  SRF.setCorrectionFactor(1.035);
+  pinMode(led, OUTPUT);
+  pinMode(A5, INPUT);
   int Speed;
 }
 
@@ -48,20 +46,20 @@ void setup() {
 void loop() {
 
   while (Serial.available() > 0) {
-    blth = Serial.read(); //checking the bluetooth module status
+    blth = Serial.read();  //checking the bluetooth module status
     Serial.println(blth);
 
-    if(blth=='F')        
-    forward();
-    
-    if(blth=='B')
-    backward();
-    
-    if(blth=='L')
-    CW();
+    if (blth == 'F')
+      forward();
 
-    if(blth=='R')
-    CCW();
+    if (blth == 'B')
+      backward();
+
+    if (blth == 'L')
+      CW();
+
+    if (blth == 'R')
+      CCW();
   }
   // distance = SRF.getCentimeter();
   // Direction = random(1, 3);
@@ -71,12 +69,12 @@ void loop() {
 
 //Functions
 void forward() {
-  distance = SRF.getCentimeter();
+  /*distance = SRF.getCentimeter();
   led_rate = map(distance, 0, 2000, 80, 4000);
   Blink();
   Status = true;
   Direction = "Forward";
-  speed_control();
+  speed_control();*/
   digitalWrite(l_motor_in1, LOW);
   digitalWrite(l_motor_in2, HIGH);
   analogWrite(l_motor, Speed);
@@ -84,17 +82,15 @@ void forward() {
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
   analogWrite(r_motor, Speed);
-  digitalWrite(10, LOW);
-  digitalWrite(11, LOW);
 }
 
 void Stop() {
-  distance = SRF.getCentimeter();
+ /* distance = SRF.getCentimeter();
   led_rate = map(distance, 0, 2000, 80, 4000);
   Blink();
   Status = false;
   Direction = "Stop";
-  speed_control();
+  speed_control();*/
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
   analogWrite(l_motor, 0);
@@ -102,19 +98,17 @@ void Stop() {
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, 0);
-  digitalWrite(10, LOW);
-  digitalWrite(11, LOW);
 }
 
 void backward() {
-  distance = SRF.getCentimeter();
+  /*distance = SRF.getCentimeter();
   Serial.print("/t/t distance:");
   Serial.print(distance);
   led_rate = map(distance, 0, 2000, 80, 1500);
   Blink();
   Status = true;
   Direction = "Backward";
-  speed_control();
+  speed_control();*/
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
   analogWrite(l_motor, Speed);
@@ -122,9 +116,6 @@ void backward() {
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, Speed);
-
-  digitalWrite(10, LOW);
-  digitalWrite(11, LOW);
 }
 
 void CW() {
@@ -135,9 +126,6 @@ void CW() {
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
   analogWrite(r_motor, Speed);
-
-  digitalWrite(10, HIGH);
-  digitalWrite(11, LOW);
 }
 
 void CCW() {
@@ -148,9 +136,6 @@ void CCW() {
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
   analogWrite(r_motor, Speed);
-
-  digitalWrite(11, HIGH);
-  digitalWrite(10, LOW);
 }
 
 void speed_control() {
@@ -184,12 +169,31 @@ void speed_control() {
   }
 }
 
-
-void Blink() {
+/*void Blink() {
 
   Serial.print(distance);
   digitalWrite(2, HIGH);
   delay(led_rate);
   digitalWrite(2, LOW);
   delay(led_rate);
-}
+}*/
+
+/*void Smoke() {
+  int thres=250;
+  smoke = analogread(alarm, A5);
+  Serial.print("Gas level: ");
+  Serial.println(smoke);
+  Serial.print("\n");
+  if (smoke > thres) {
+    digitalwrite(led, HIGH);
+    led_status = true;
+  } else {
+    digitalWrite(led, LOW);
+    led_status = false;
+  }
+
+  if (led_status)
+    Serial.print("\t LED : On");
+  else
+    Serial.print("\t LED : OFF");
+}*/
