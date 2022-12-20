@@ -4,10 +4,8 @@
 #include "SRF05.h"
 
 // Global Variebels
-int LED;
 int Speed;
 bool Status;
-String Direction;
 int distance;
 int led_rate;
 char blth;
@@ -39,7 +37,6 @@ void setup()
   pinMode(A1, INPUT);
   pinMode(led, OUTPUT);
   pinMode(A5, INPUT);
-  int Speed;
 
   if (Serial.available() > 0)
     Serial.print("\tBluetooth Connected Seccessfully.\a");
@@ -50,8 +47,31 @@ void loop()
 
   while (Serial.available() > 0)
   {
-    blth = Serial.read(); // checking the bluetooth module status
-    // Serial.println(blth);
+    blth = Serial.read();
+    // Speed = Serial.read(); // checking the bluetooth module status
+    switch (blth)
+    {
+    case '10':
+      Speed = 30;
+    case '20':
+      Speed = 60;
+    case '30':
+      Speed = 90;
+    case '40':
+      Speed = 120;
+    case '50':
+      Speed = 150;
+    case '60':
+      Speed = 180;
+    case '70':
+      Speed = 210;
+    case '80':
+      Speed = 230;
+    case '90':
+      Speed = 250;
+    case 'q':
+      Speed = 255;
+    }
 
     if (blth == 'F')
       forward();
@@ -68,17 +88,17 @@ void loop()
     if (blth == 'S')
       Stop();
 
-    // if (blth == '')
-    // digitalWrite(lights,HIGH);
+    if (blth == 'W')
+      digitalWrite(lights, HIGH);
 
-    // if (blth == '')
-    // digitalWrite(lights,LOW);
+    if (blth == 'w')
+      digitalWrite(lights, LOW);
 
-    // if (blth == '')
-    // digitalWrite(back_lights,HIGH);
+    if (blth == 'U')
+      digitalWrite(back_lights, HIGH);
 
-    // if (blth == '')
-    // digitalWrite(back_lights,LOW);
+    if (blth == 'u')
+      digitalWrite(back_lights, LOW);
   }
   // distance = SRF.getCentimeter();
   // Direction = random(1, 3);
@@ -96,11 +116,11 @@ void forward()
   speed_control();*/
   digitalWrite(l_motor_in1, LOW);
   digitalWrite(l_motor_in2, HIGH);
-  analogWrite(l_motor, 250);
+  analogWrite(l_motor, 255);
 
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
-  analogWrite(r_motor, 250);
+  analogWrite(r_motor, 255);
 }
 
 void Stop()
@@ -132,33 +152,33 @@ void backward()
   speed_control();*/
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
-  analogWrite(l_motor, 250);
+  analogWrite(l_motor, 255);
 
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
-  analogWrite(r_motor, 250);
+  analogWrite(r_motor, 255);
 }
 
 void CW()
 {
   digitalWrite(l_motor_in1, HIGH);
   digitalWrite(l_motor_in2, LOW);
-  analogWrite(l_motor, 250);
+  analogWrite(l_motor, 255);
 
   digitalWrite(r_motor_in3, LOW);
   digitalWrite(r_motor_in4, HIGH);
-  analogWrite(r_motor, 250);
+  analogWrite(r_motor, 255);
 }
 
 void CCW()
 {
   digitalWrite(l_motor_in1, LOW);
   digitalWrite(l_motor_in2, HIGH);
-  analogWrite(l_motor, 250);
+  analogWrite(l_motor, 255);
 
   digitalWrite(r_motor_in3, HIGH);
   digitalWrite(r_motor_in4, LOW);
-  analogWrite(r_motor, 250);
+  analogWrite(r_motor, 255);
 }
 
 // void speed_control()
