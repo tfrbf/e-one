@@ -76,8 +76,20 @@ void loop()
     if (blth == 'F')
       forward();
 
+    if (blth == 'I')
+      forwardR();
+
+    if (blth == 'G')
+      forwardL();
+
     if (blth == 'B')
       backward();
+
+    if (blth == 'J')
+      backwardR();
+
+    if (blth == 'H')
+      backwardL(); 
 
     if (blth == 'L')
       CW();
@@ -123,6 +135,29 @@ void forward()
   analogWrite(r_motor, 255);
 }
 
+void forwardR()
+{
+
+  digitalWrite(l_motor_in1, LOW);
+  digitalWrite(l_motor_in2, HIGH);
+  analogWrite(l_motor, 255);
+
+  digitalWrite(r_motor_in3, LOW);
+  digitalWrite(r_motor_in4, HIGH);
+  analogWrite(r_motor, 55);
+}
+
+void forwardL()
+{
+
+  digitalWrite(l_motor_in1, LOW);
+  digitalWrite(l_motor_in2, HIGH);
+  analogWrite(l_motor, 55);
+
+  digitalWrite(r_motor_in3, LOW);
+  digitalWrite(r_motor_in4, HIGH);
+  analogWrite(r_motor, 255);
+}
 void Stop()
 {
   /* distance = SRF.getCentimeter();
@@ -159,6 +194,29 @@ void backward()
   analogWrite(r_motor, 255);
 }
 
+void backwardR()
+{
+
+  digitalWrite(l_motor_in1, HIGH);
+  digitalWrite(l_motor_in2, LOW);
+  analogWrite(l_motor, 255);
+
+  digitalWrite(r_motor_in3, HIGH);
+  digitalWrite(r_motor_in4, LOW);
+  analogWrite(r_motor, 55);
+}
+
+void backwardL()
+{
+
+  digitalWrite(l_motor_in1, HIGH);
+  digitalWrite(l_motor_in2, LOW);
+  analogWrite(l_motor, 55);
+
+  digitalWrite(r_motor_in3, HIGH);
+  digitalWrite(r_motor_in4, LOW);
+  analogWrite(r_motor, 255);
+}
 void CW()
 {
   digitalWrite(l_motor_in1, HIGH);
